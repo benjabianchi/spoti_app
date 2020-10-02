@@ -9,14 +9,14 @@ app = Flask(__name__)
 
 
 ### PAGINA PRINCIPAL ##
-@app.route("/home",methods=["GET","POST"])
+@app.route("/",methods=["GET","POST"])
 def home():
     if request.method == "POST":
         artist = request.form.get("artist")
         print(artist)
         csv = get_spoti_info("2f6b44cdc0b543ec8a54aed0b588070c","0edbbe90fb3248e98987290336e63c70",artist)
         resp = make_response(csv)
-        resp.headers["Content-Disposition"] = "attachment; filename=export_artist.csv"
+        resp.headers["Content-Disposition"] = f"attachment; filename=export_artist_{artist}.csv"
         resp.headers["Content-Type"] = "text/csv"
         return resp
 
